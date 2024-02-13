@@ -9,6 +9,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get Changed Source Files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: |
+            **.mch
 
       - name: Create image tag
         id: image_tag
@@ -49,8 +58,9 @@ jobs:
           mkdir -p ${{ steps.image_tag.outputs.CACHE_PATH }}
           docker save ${{ steps.image_tag.outputs.TAG }} > ${{ steps.image_tag.outputs.TAR_PATH }}
 
-      - name: Run tests in container
+      - name: Run step if source file(s) change
+        if: steps.changed-files.outputs.test_any_changed == 'true'
         run: |
           # Change owner of workspace to ubuntu user
           sudo chown -R 1000:1000 ${{ github.workspace }}
-          docker run --rm -v ${{ github.workspace }}:/repository ${{ steps.image_tag.outputs.TAG }} NOTEXIST.mch
+          docker run --rm -v ${{ github.workspace }}:/repository ${{ steps.image_tag.outputs.TAG }} ${{steps.changed-files.outputs}}
