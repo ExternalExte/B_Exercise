@@ -3,7 +3,7 @@ on: push
 env:
   container: externalexte/bbatch_prove
 jobs:
-  test-job:
+  bbatch-prove:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -22,4 +22,4 @@ jobs:
       - name: Run step if source file(s) change
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          docker run --rm -v ${{ github.workspace }}:/repository ${{env.container}} ${{steps.changed-files.outputs.all_changed_files}}
+          docker run -v ${{ github.workspace }}:/repository ${{env.container}} ${{steps.changed-files.outputs.all_changed_files}}
