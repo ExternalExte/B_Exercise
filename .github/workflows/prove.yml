@@ -20,6 +20,7 @@ jobs:
             **.mch
 
       - name: List all changed files .mch files
+        if: steps.changed-files.outputs.any_changed == 'true'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
@@ -28,6 +29,7 @@ jobs:
           done
 
       - name: Create image tag
+        if: steps.changed-files.outputs.any_changed == 'true'
         id: image_tag
         run: |
           # Define cache dir
@@ -48,6 +50,7 @@ jobs:
           echo "CACHE_KEY=${IMAGE_NAME}_${VARIANT}" >> $GITHUB_OUTPUT
 
       - name: Enable cache
+        if: steps.changed-files.outputs.any_changed == 'true'
         id: cache
         uses: actions/cache@v3
         with:
@@ -55,12 +58,14 @@ jobs:
           key: ${{ steps.image_tag.outputs.CACHE_KEY }}
 
       - name: Load image from cache if exists
-        if: steps.cache.outputs.cache-hit == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true' &&
+          steps.cache.outputs.cache-hit == 'true'
         run: |
           docker load -i ${{ steps.image_tag.outputs.TAR_PATH }}
 
       - name: Build image if cache does not exist
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.changed-files.outputs.any_changed == 'true' &&
+          steps.cache.outputs.cache-hit != 'true'
         run: |
           docker build -t ${{ steps.image_tag.outputs.TAG }} prove
           mkdir -p ${{ steps.image_tag.outputs.CACHE_PATH }}
