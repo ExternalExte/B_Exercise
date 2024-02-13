@@ -53,4 +53,4 @@ jobs:
         run: |
           # Change owner of workspace to ubuntu user
           sudo chown -R 1000:1000 ${{ github.workspace }}
-          docker run --rm -v ${{ github.workspace }}:/repository ${{ steps.image_tag.outputs.TAG }} PointSystem.mch
+          docker run --rm -v ${{ github.workspace }}:/repository ${{ steps.image_tag.outputs.TAG }} NOTEXIST.mch
