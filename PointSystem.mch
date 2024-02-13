@@ -11,7 +11,7 @@ OPERATIONS
     PRE
       used < granted
     THEN
-      sp, used := used + 1, used - 2
+      sp, used := used + 1, used - 1
     END;
   ap <-- granted_a_point =
     PRE
