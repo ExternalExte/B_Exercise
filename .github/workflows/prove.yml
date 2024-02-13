@@ -36,7 +36,7 @@ jobs:
           IMAGE_HASH="${{ hashFiles('./prove/Dockerfile') }}"
           # Create image tag
           VARIANT="$(TZ=UTC-9 date +%Y%m%d)_${IMAGE_HASH:0:7}"
-          IMAGE_NAME="slcc_cmake_${{ env.ARCH }}"
+          IMAGE_NAME="bbatch_prove_${{ env.ARCH }}"
           TAG="${IMAGE_NAME}:${VARIANT}"
           # Cache dir setting
           TAR_NAME="${IMAGE_NAME}_${VARIANT}.tar"
