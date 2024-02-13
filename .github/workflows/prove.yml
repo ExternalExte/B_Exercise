@@ -19,6 +19,14 @@ jobs:
           files: |
             **.mch
 
+      - name: List all changed files .mch files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+
       - name: Create image tag
         id: image_tag
         run: |
