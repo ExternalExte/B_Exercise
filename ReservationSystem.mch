@@ -11,6 +11,9 @@ PROPERTIES  // 集合・定数の制約宣言
 VARIABLES // 変数の宣言
   reservation, available
 INVARIANT // 変数の不変条件宣言
+  /*
+    WellDefinednessInvariant 	Unproved 1
+  */
   reservation: MEMBER --> STATUS &
   available: NATURAL &
   capacity = card(reservation~[{yes}]) + available
