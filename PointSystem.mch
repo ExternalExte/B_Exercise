@@ -18,5 +18,7 @@ OPERATIONS
       granted < 10000
     THEN
       ap, granted := granted + 1, granted + 1
-    END   
+    END; 
+  unused <-- query =
+    unused := granted - used
 END
