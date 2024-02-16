@@ -32,6 +32,15 @@ OPERATIONS  // 操作の定義
     THEN
       books := {new_book} \/ books
     END;
+  borrow(book, person) =
+    PRE
+      book: books &
+      book/: dom(issued) &
+      person: PERSONS &
+      person/: ran(issued)
+    THEN
+      issued := {book |-> person} \/ issued
+    END;
 ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
 
 END
