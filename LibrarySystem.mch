@@ -11,10 +11,11 @@ SETS  // 集合の宣言
 // CONSTANTS // 定数の宣言
 // PROPERTIES  // 集合・定数の制約宣言
 VARIABLES // 変数の宣言
-  books, issued
+  books, users, issued
 INVARIANT // 変数の不変条件宣言
   books: POW(BOOKS) &
-  issued: books >+> PERSONS
+  users: POW(PERSONS) &
+  issued: books >+> users
   /* 集合Sから集合Tへの写像において
       全域[-]部分[+]: Sの全ての要素がTに対応付けられるかどうか
       単射[> >]全射[ ->>]: Sの異なる要素が, Tの異なる要素に対応付けられるかどうか. 
@@ -23,7 +24,7 @@ INVARIANT // 変数の不変条件宣言
       部分単射[>+>]になる
   */
 INITIALISATION  // 変数の初期値宣言
-  books, issued := {}, {}
+  books, users, issued := {},{}, {}
 OPERATIONS  // 操作の定義
   register_book(new_book) =
     PRE
@@ -32,40 +33,43 @@ OPERATIONS  // 操作の定義
     THEN
       books := {new_book} \/ books
     END;
-  borrow(book, person) =
+  register_user(user) =
+    PRE
+      user: PERSONS &
+      user/: users
+    THEN
+      users := {user} \/ users
+    END;
+  borrow(book, user) =
     PRE
       book: BOOKS &
       book: books &
       book/: dom(issued) &
-      person: PERSONS &
-      person/: ran(issued)
+      user: PERSONS &
+      user: users &
+      user/: ran(issued)
     THEN
-      issued := {book |-> person} \/ issued
+      issued := {book |-> user} \/ issued
     END;
-  person <-- search_person(book) =
+  user <-- search_user(book) =
       PRE
         book: BOOKS &
         book: books &
         book: dom(issued)
       THEN
-        person := issued(book)
+        user := issued(book)
       END;
-  return(book, person) =
+  return(book, user) =
     PRE
       book: BOOKS &
       book: books &
       book: dom(issued) &
-      person: PERSONS &
-      person: ran(issued) &
-      person = issued(book)
+      user: PERSONS &
+      user: users &
+      user: ran(issued) &
+      user = issued(book)
     THEN
-      issued := issued - {book |-> person}
+      issued := issued - {book |-> user}
     END
-ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
-  !(book, person).(
-    book: BOOKS & book: books & person: PERSONS =>
-      {book |-> person}: books >+> PERSONS) &
-  !(book, person).(
-    book: BOOKS & book: books & person: PERSONS & book /: dom(issued) & person /: ran(issued) =>
-      {book |-> person} \/ issued: books >+> PERSONS)
+// ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
 END
