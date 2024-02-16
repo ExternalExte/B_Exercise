@@ -22,7 +22,11 @@ jobs:
           files: |
             **.mch
 
-      - name: Run step if source file(s) change
+      - name: pull the container
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          docker pull ${{env.container}}
+      - name: Prove Changed Files!
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           docker run -v ${{ github.workspace }}:/repository ${{env.container}} ${{steps.changed-files.outputs.all_changed_files}}
