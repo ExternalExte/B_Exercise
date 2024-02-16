@@ -47,7 +47,17 @@ OPERATIONS  // 操作の定義
         book: dom(issued)
       THEN
         person := issued(book)
-      END
+      END;
+  return(book, person) =
+    PRE
+      book: BOOKS &
+      book: dom(issued) &
+      person: PERSONS &
+      person: ran(issued) &
+      person = issued(book)
+    THEN
+      issued := issued - {book |-> person}
+    END
 // ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
 
 END
