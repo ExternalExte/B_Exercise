@@ -14,7 +14,7 @@ INVARIANT // 変数の不変条件宣言
   /*
     WellDefinednessInvariant 	Unproved 1
   */
-  reservation: MEMBER --> STATUS &
+  reservation: MEMBER -->> STATUS &
   available: NATURAL &
   capacity = card(reservation~[{yes}]) + available
 INITIALISATION  // 変数の初期値宣言
