@@ -35,6 +35,7 @@ OPERATIONS  // 操作の定義
   borrow(book, person) =
     PRE
       book: BOOKS &
+      book: books &
       book/: dom(issued) &
       person: PERSONS &
       person/: ran(issued)
@@ -44,6 +45,7 @@ OPERATIONS  // 操作の定義
   person <-- search_person(book) =
       PRE
         book: BOOKS &
+        book: books &
         book: dom(issued)
       THEN
         person := issued(book)
@@ -51,6 +53,7 @@ OPERATIONS  // 操作の定義
   return(book, person) =
     PRE
       book: BOOKS &
+      book: books &
       book: dom(issued) &
       person: PERSONS &
       person: ran(issued) &
@@ -58,6 +61,11 @@ OPERATIONS  // 操作の定義
     THEN
       issued := issued - {book |-> person}
     END
-// ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
-
+ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
+  !(book, person).(
+    book: BOOKS & book: books & person: PERSONS =>
+      {book |-> person}: books >+> PERSONS) &
+  !(book, person).(
+    book: BOOKS & book: books & person: PERSONS & book /: dom(issued) & person /: ran(issued) =>
+      {book |-> person} \/ issued: books >+> PERSONS)
 END
