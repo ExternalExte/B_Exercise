@@ -25,7 +25,13 @@ INVARIANT // 変数の不変条件宣言
 INITIALISATION  // 変数の初期値宣言
   books, issued := {}, {}
 OPERATIONS  // 操作の定義
-
+  register_book(new_book) =
+    PRE
+      new_book: BOOKS &
+      new_book/: books
+    THEN
+      books := {new_book} \/ books
+    END;
 ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
 
 END
