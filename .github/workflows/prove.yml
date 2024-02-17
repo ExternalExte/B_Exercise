@@ -20,7 +20,9 @@ jobs:
         uses: tj-actions/changed-files@v42
         with:
           files: |
-            **.mch
+            - **.mch
+            - **.ref
+            - **.imp
 
       - name: pull the container
         if: steps.changed-files.outputs.any_changed == 'true'
