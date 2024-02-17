@@ -1,0 +1,28 @@
+REFINEMENT
+  DirectedGraph_r
+REFINES
+  DirectedGraph
+VARIABLES // 変数の宣言
+  CEdge
+INVARIANT
+  CEdge: NODE --> POW(NODE) &
+  !(n1, n2).(n1: NODE & n2: NODE => ((n1 |-> n2: Edge) <=> (n2: CEdge(n1))))
+INITIALISATION  // 変数の初期値宣言
+  CEdge := NODE*{{}}
+
+OPERATIONS
+  add_edge(n1, n2) =
+      CEdge(n1) := CEdge(n1) \/ {n2}
+ASSERTIONS
+  !(n1, n2).(n1: NODE & n2: NODE => (
+      n1 |-> n2 : Edge \/ {n1 |-> n2} <=> (n2: CEdge(n1) \/ {n2}))
+  ) &
+  !(n1, n2).(n1: NODE & n2: NODE => (
+      (CEdge <+ {n1 |-> (CEdge(n1) \/ {n2})})(n1) = CEdge(n1) \/ {n2})
+  ) &
+  !(n1, n2).(n1: NODE & n2: NODE => (
+      n1 |-> n2 : Edge \/ {n1 |-> n2}
+      <=> (n2: (CEdge <+ {n1 |-> (CEdge(n1) \/ {n2})})(n1))
+    )
+  )
+END
