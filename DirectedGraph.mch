@@ -1,14 +1,14 @@
-MACHINE // 抽象機械の名前とパラメタ(抽象機械に与える入力)の宣言
+MACHINE
   DirectedGraph
-SETS  // 集合の宣言
+SETS
   NODE
-VARIABLES // 変数の宣言
+VARIABLES
   Edge
-INVARIANT // 変数の不変条件宣言
+INVARIANT
   Edge: NODE <-> NODE
-INITIALISATION  // 変数の初期値宣言
+INITIALISATION
   Edge := {}
-OPERATIONS  // 操作の定義
+OPERATIONS
   add_edge(n1, n2) =
     PRE
       n1: NODE & n2: NODE
