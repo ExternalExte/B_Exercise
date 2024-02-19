@@ -16,4 +16,4 @@ jobs:
           sudo curl -OL https://www.atelierb.eu/wp-content/uploads/2021/12/atelierb-free-4.7.1p1-linux_x64.deb
           sudo dpkg -i atelierb-free-4.7.1p1-linux_x64.deb
       - name: Prove!
-        run: python bbatch_wrapper.py
+        run: python ./.github/workflows/bbatch_wrapper.py
