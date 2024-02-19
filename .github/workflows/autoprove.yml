@@ -1,0 +1,19 @@
+name: autoprove
+on:
+  push:
+    branches:
+      - test
+jobs:
+  bbatch-prove:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+      - name: Install AtelierB
+        run: |
+          sudo apt-get update
+          # sudo apt-get install libglib2.0-0
+          sudo curl -OL https://www.atelierb.eu/wp-content/uploads/2021/12/atelierb-free-4.7.1p1-linux_x64.deb
+          sudo dpkg -i atelierb-free-4.7.1p1-linux_x64.deb
+      - name: Prove!
+        run: python bbatch_wrapper.py
