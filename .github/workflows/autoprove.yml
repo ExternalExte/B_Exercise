@@ -16,8 +16,9 @@ jobs:
           sudo curl -OL https://www.atelierb.eu/wp-content/uploads/2021/12/atelierb-free-4.7.1p1-linux_x64.deb
           sudo dpkg -i atelierb-free-4.7.1p1-linux_x64.deb
       - name: Prove!
+        id: prove
         run: |
           python ./.github/workflows/bbatch_wrapper.py
       - name: Job Summary
         run: |
-          echo '### 証明結果: ${{ steps.result.outputs.PROVE_RESULT }}' >> $GITHUB_STEP_SUMMARY'
+          echo '### 証明結果: ${{ steps.prove.outputs.PROVE_RESULT }}' >> $GITHUB_STEP_SUMMARY'
