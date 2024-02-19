@@ -21,4 +21,4 @@ jobs:
           python ./.github/workflows/bbatch_wrapper.py
       - name: Job Summary
         run: |
-          echo '### 証明結果: ${{ steps.prove.outputs.PROVE_RESULT }}' >> $GITHUB_STEP_SUMMARY'
+          echo '### 証明結果: ${{ steps.prove.outputs.PROVE_RESULT }}' >> $GITHUB_STEP_SUMMARY
