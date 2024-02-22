@@ -1,0 +1,3 @@
+﻿THEORY User_Pass IS
+Operation(Operation_make_a_reservation) & ff(0) & dd & ah((reservation<+{mem|->yes})~[{yes}] = (reservation)~[{yes}]\/{mem}) & pr & pr
+END
