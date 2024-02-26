@@ -15,18 +15,19 @@ jobs:
         with: 
           files: ./*.{mch, ref, imp}
       - uses: actions/setup-python@v5
+        if: steps.changed-files.outputs.any_changed == 'true'
         with:
           python-version: '3.10' 
       - name: Install AtelierB
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           sudo apt-get update
           sudo curl -OL https://www.atelierb.eu/wp-content/uploads/2021/12/atelierb-free-4.7.1p1-linux_x64.deb
           sudo dpkg -i atelierb-free-4.7.1p1-linux_x64.deb
       - name: Prove!
-        id: prove
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           echo 'Changed Files'
           echo ${{steps.changed-files.outputs.all_changed_files}}
           echo "# 証明結果" >> $GITHUB_STEP_SUMMARY
           python ./.github/workflows/bbatch_wrapper.py ${{steps.changed-files.outputs.all_changed_files}} | tee $GITHUB_STEP_SUMMARY
-          GITHUB_STEP_SUMMARY=`$GITHUB_STEP_SUMMARY`
