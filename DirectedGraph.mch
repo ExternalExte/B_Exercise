@@ -16,4 +16,3 @@ OPERATIONS
       Edge := Edge \/ { n1 |-> n2 }
     END
 END
-

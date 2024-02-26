@@ -15,4 +15,3 @@ OPERATIONS
       CEdge := CEdge <+ {n1 |-> (CEdge(n1) \/ {n2})}
 END
 
-
