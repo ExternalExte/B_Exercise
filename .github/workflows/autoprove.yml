@@ -20,17 +20,9 @@ jobs:
       - name: Install AtelierB
         run: |
           sudo apt-get update
-          # sudo apt-get install libglib2.0-0
           sudo curl -OL https://www.atelierb.eu/wp-content/uploads/2021/12/atelierb-free-4.7.1p1-linux_x64.deb
           sudo dpkg -i atelierb-free-4.7.1p1-linux_x64.deb
       - name: Prove!
         id: prove
         run: |
-          python ./.github/workflows/bbatch_wrapper.py ${{steps.changed-files.outputs.all_changed_files}} | tee result.txt
-      - name: Job Summary!
-        run: |
-          while read line
-          do
-            echo -e $line >> $GITHUB_STEP_SUMMARY
-          done < result.txt
-
+          python ./.github/workflows/bbatch_wrapper.py ${{steps.changed-files.outputs.all_changed_files}} | tee $GITHUB_STEP_SUMMARY
