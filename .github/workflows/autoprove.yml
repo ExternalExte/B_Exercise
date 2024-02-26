@@ -16,6 +16,8 @@ jobs:
           files: |
             *.{mch, ref, imp}
           files_separator: " "
+      - name: Output changed files
+        run: echo ${{ steps.changed-files.outputs.all_changed_files }}
       - uses: actions/setup-python@v5
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         with:
