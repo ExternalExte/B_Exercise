@@ -25,4 +25,8 @@ jobs:
       - name: Prove!
         id: prove
         run: |
+          echo 'Changed Files'
+          echo ${{steps.changed-files.outputs.all_changed_files}}
+          echo "# 証明結果" >> $GITHUB_STEP_SUMMARY
           python ./.github/workflows/bbatch_wrapper.py ${{steps.changed-files.outputs.all_changed_files}} | tee $GITHUB_STEP_SUMMARY
+          GITHUB_STEP_SUMMARY=`$GITHUB_STEP_SUMMARY`
