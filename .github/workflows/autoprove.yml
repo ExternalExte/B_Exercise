@@ -12,9 +12,6 @@ jobs:
           fetch-depth: 0
       - uses: tj-actions/changed-files@v42
         id: changed-files
-        with:
-          files: |
-            **.{mch, ref, imp}
       - uses: actions/setup-python@v5
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         with:
