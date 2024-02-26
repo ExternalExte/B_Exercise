@@ -23,11 +23,10 @@ jobs:
         id: changed-files
         with:
           files: |
-            **.mch
+            **.{mch, ref, imp}
       - name: Output changed files
         run: |
           echo ${{ steps.changed-files.outputs.all_changed_files }}
-          ls -al
       - name: Prove!
         id: prove
         run: |
@@ -37,5 +36,6 @@ jobs:
           while read line
           do
             echo $line >> $GITHUB_STEP_SUMMARY
+            echo $line
           done < result.txt
 

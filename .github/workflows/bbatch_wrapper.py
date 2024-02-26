@@ -12,11 +12,6 @@ os.makedirs('lang')
 components = [os.path.basename(file) for file in os.scandir() if file.is_file() and file.name.endswith(('.mch', '.ref', '.imp'))]
 targets = [os.path.splitext(os.path.basename(tg))[0] for tg in sys.argv[1:]]
 
-print('all components')
-print(components)
-print('targets')
-print(targets)
-
 result = []
 with subprocess.Popen(["/opt/atelierb-free-4.7.1p1/startBB"], stdin=subprocess.PIPE, stdout=subprocess.PIPE , stderr=None) as bbatch:
   bbatch.stdin.write(f'crp repo bdp lang SOFTWARE\n'.encode())
