@@ -14,3 +14,4 @@ OPERATIONS
   add_edge(n1, n2) =
       CEdge := CEdge <+ {n1 |-> (CEdge(n1) \/ {n2})}
 END
+ 

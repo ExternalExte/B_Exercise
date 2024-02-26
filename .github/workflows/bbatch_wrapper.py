@@ -37,7 +37,7 @@ with subprocess.Popen(["/opt/atelierb-free-4.7.1p1/startBB"], stdin=subprocess.P
     if line.find('Printing the status of') != -1:
       inside = True
 result = ''.join(result)
-result = '# 証明結果' + f'```{result}```'
+result = '# 証明結果\n' + f'```{result}```'
 print(result)
 shutil.rmtree('bdp')
 shutil.rmtree('lang')
