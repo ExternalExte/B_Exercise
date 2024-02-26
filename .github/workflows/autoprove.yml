@@ -2,7 +2,7 @@ name: autoprove
 on:
   push:
     branches:
-      - test
+      - develop
 jobs:
   bbatch-prove:
     runs-on: ubuntu-latest
