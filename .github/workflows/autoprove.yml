@@ -14,9 +14,9 @@ jobs:
         id: changed-files
         with:
           files: |
-            - **.mch
-            - **.ref
-            - **.imp
+            **.mch
+            **.ref
+            **.imp
           files_separator: " "
       - name: Output changed files
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
