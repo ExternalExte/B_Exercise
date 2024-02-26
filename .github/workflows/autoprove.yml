@@ -28,7 +28,9 @@ jobs:
             **.imp
           files_separator: " "
       - name: Output changed files
-        run: echo ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo ${{ steps.changed-files.outputs.all_changed_files }}
+          ls -al
       - name: Prove!
         id: prove
         run: |
