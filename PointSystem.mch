@@ -3,7 +3,7 @@ MACHINE // 本にはMODELで記載されてる, 違いはなんだろう
 VARIABLES
   granted, used
 INVARIANT
-  granted: NATURAL & used: NATURAL & granted <= 1000 & used <= granted
+  granted: NATURAL & used: NATURAL & granted <= 10000 & used <= granted
 INITIALISATION
   granted, used := 0,0
 OPERATIONS
@@ -15,7 +15,7 @@ OPERATIONS
     END;
   ap <-- granted_a_point =
     PRE
-      granted < 1000
+      granted < 10000
     THEN
       ap, granted := granted + 1, granted + 1
     END; 

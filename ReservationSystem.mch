@@ -1,7 +1,7 @@
 MACHINE // 抽象機械の名前とパラメタ(抽象機械に与える入力)の宣言
   ReservationSystem(capacity) // capacity: スカラーパラメタ, See also: 集合パラメタ
 CONSTRAINTS // パラメタの制約宣言
-  capacity: NAT & capacity <= 10
+  capacity: NAT & capacity <= 100
 SETS  // 集合の宣言
   MEMBER; STATUS = {yes, no}
 CONSTANTS // 定数の宣言
