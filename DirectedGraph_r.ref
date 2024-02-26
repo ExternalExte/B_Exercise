@@ -7,10 +7,6 @@ VARIABLES
 INVARIANT
   CEdge: NODE --> POW(NODE) &
   !(xx, yy).(xx: NODE & yy: NODE => ((xx |-> yy: Edge) <=> (yy: CEdge(xx))))
-  !(ww, zz, uu, vv).(
-    ww: NODE & zz: NODE & uu: NODE & vv: NODE 
-    => (uu|->vv: Edge \/ {ww|->zz})
-      <=> (vv : (CEdge <+ {ww |-> (CEdge(ww)) \/ ({zz})})(uu)))
 INITIALISATION
   CEdge := NODE*{{}}
 OPERATIONS
