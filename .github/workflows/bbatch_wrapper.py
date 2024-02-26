@@ -37,6 +37,6 @@ with subprocess.Popen(["/opt/atelierb-free-4.7.1p1/startBB"], stdin=subprocess.P
     if line.find('Printing the status of') != -1:
       inside = True
 result = ''.join(result)
-subprocess.run([f'echo "PROVE_RESULT={result}" >> $GITHUB_OUTPUT'], shell=True)
+print(result)
 shutil.rmtree('bdp')
 shutil.rmtree('lang')
