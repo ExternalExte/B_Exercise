@@ -1,0 +1,29 @@
+IMPLEMENTATION
+  SeatReservationI
+REFINES
+  SeatReservation
+IMPORTS
+  hall.ARRAY(MEMBER, capacity)
+VALUES
+  SEAT = 1..1000;
+  MEMBER = 0..10000;
+  empty = 0;
+  capacity = 1000
+INVARIANT
+  hall.arr_vrb = reservation
+INITIALISATION
+  hall.SET_ARRAY(1, capacity, empty)
+OPERATIONS
+  make_reservation(mem, seat) =
+    BEGIN
+      hall.STR_ARRAY(seat, mem)
+    END;
+  cancel(seat) =
+    BEGIN
+      hall.STR_ARRAY(seat, empty)
+    END;
+  mem <-- reservation_query(seat) = 
+    BEGIN
+      mem <-- hall.VAL_ARRAY(seat)
+    END
+END
