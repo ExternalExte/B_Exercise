@@ -20,17 +20,16 @@ INVARIANT // 変数の不変条件宣言
 INITIALISATION  // 変数の初期値宣言
   reservation, available := MEMBER * {no}, capacity
 OPERATIONS  // 操作の定義
-  make_a_reservation(pr) = 
+  make_a_reservation(mem) = 
     PRE
-      pr: MEMBER &
+      mem: MEMBER &
       available > 0 &
-      reservation(pr) = no
+      reservation(mem) = no
     THEN
       reservation, available :=
-        reservation <+ {pr |-> yes}, available-1
+        reservation <+ {mem |-> yes}, available-1
     END
 ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするための補題. 上から順に証明される
-  !pr.(pr: MEMBER & reservation(pr) = no => 
-    (reservation<+{pr |-> yes})~[{yes}] = reservation~[{yes}] \/ {pr})
+  !mem.(mem: MEMBER & reservation(mem) = no => 
+    (reservation<+{mem |-> yes})~[{yes}] = reservation~[{yes}] \/ {mem})
 END
- 
