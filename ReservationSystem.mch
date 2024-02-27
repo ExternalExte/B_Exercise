@@ -33,3 +33,4 @@ ASSERTIONS  // 表明(assertion)の宣言, 表明は証明を容易にするた�
   !pr.(pr: MEMBER & reservation(pr) = no => 
     (reservation<+{pr |-> yes})~[{yes}] = reservation~[{yes}] \/ {pr})
 END
+ 
