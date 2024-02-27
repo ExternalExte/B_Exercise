@@ -9,18 +9,31 @@ CONSTANTS // 定数の宣言
 PROPERTIES  // 集合・定数の制約宣言
   max_mems: NAT & card(MEMBER) = max_mems
 VARIABLES // 変数の宣言
-  available, reserved
+  available, reserved, reservation
 INVARIANT // 変数の不変条件宣言
-  available: NATURAL & reserved: FIN(MEMBER) & capacity = card(reserved) + available
+  available: NATURAL & reserved: FIN(MEMBER) & capacity = card(reserved) + available &
+  reservation: MEMBER --> STATUS &
+  !res.(res: MEMBER & res: reserved => reservation(res) = yes) &
+  !unres.(unres: MEMBER & unres/: reserved => reservation(unres) = no)
 INITIALISATION  // 変数の初期値宣言
-  available, reserved := capacity, {}
+  available, reserved, reservation := capacity, {}, MEMBER*{no}
 OPERATIONS  // 操作の定義
   make_a_reservation(mem) = 
     PRE
       mem: MEMBER &
       mem /: reserved &
+      reservation(mem) = no &
       available > 0
     THEN
-      available, reserved := available-1, reserved \/ {mem}
+      available, reserved, reservation := available-1, reserved \/ {mem}, reservation <+ {mem |-> yes}
     END
+ASSERTIONS
+  !(res, mem).(
+    res: MEMBER &
+    mem: MEMBER &
+    res: reserved &
+    mem /: reserved
+    =>
+    reservation(res) /= reservation(mem)
+  )
 END
