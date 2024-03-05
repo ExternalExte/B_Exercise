@@ -1,0 +1,3 @@
+﻿THEORY User_Pass IS
+Operation(Operation_try_to_use) & ff(0) & pr & pr
+END
