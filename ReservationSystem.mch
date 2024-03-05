@@ -1,39 +1,28 @@
-MACHINE // 抽象機械の名前とパラメタ(抽象機械に与える入力)の宣言
-  ReservationSystem(capacity) // capacity: スカラーパラメタ, See also: 集合パラメタ
-CONSTRAINTS // パラメタの制約宣言
+MACHINE
+  ReservationSystem(capacity)
+CONSTRAINTS
   capacity: NAT & capacity <= 100
-SETS  // 集合の宣言
-  MEMBER; STATUS = {yes, no}
-CONSTANTS // 定数の宣言
+SETS
+  MEMBER
+CONSTANTS
   max_mems
-PROPERTIES  // 集合・定数の制約宣言
+PROPERTIES
   max_mems: NAT & card(MEMBER) = max_mems
-VARIABLES // 変数の宣言
-  available, reserved, reservation
-INVARIANT // 変数の不変条件宣言
-  available: NATURAL & reserved: FIN(MEMBER) & capacity = card(reserved) + available &
-  reservation: MEMBER --> STATUS &
-  !res.(res: MEMBER & res: reserved => reservation(res) = yes) &
-  !unres.(unres: MEMBER & unres/: reserved => reservation(unres) = no)
-INITIALISATION  // 変数の初期値宣言
-  available, reserved, reservation := capacity, {}, MEMBER*{no}
-OPERATIONS  // 操作の定義
-  make_a_reservation(mem) = 
+VARIABLES
+  available, reserved
+INVARIANT
+  available: NATURAL &
+  reserved: FIN(MEMBER) &
+  capacity = card(reserved) + available
+INITIALISATION
+  available, reserved := capacity, {}
+OPERATIONS
+  make_a_reservation(mem) =
     PRE
       mem: MEMBER &
       mem /: reserved &
-      reservation(mem) = no &
       available > 0
     THEN
-      available, reserved, reservation := available-1, reserved \/ {mem}, reservation <+ {mem |-> yes}
+      available, reserved := available - 1, reserved \/ {mem}
     END
-ASSERTIONS
-  !(res, mem).(
-    res: MEMBER &
-    mem: MEMBER &
-    res: reserved &
-    mem /: reserved
-    =>
-    reservation(res) /= reservation(mem)
-  )
 END

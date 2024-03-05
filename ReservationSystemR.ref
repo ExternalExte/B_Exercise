@@ -1,0 +1,27 @@
+REFINEMENT
+  ReservationSystemR(capacity)
+REFINES
+  ReservationSystem
+SETS
+  STATUS = {yes, no}
+VARIABLES
+  reservation
+INVARIANT
+  reservation: MEMBER --> STATUS &
+  !res.(res: MEMBER & res: reserved => reservation(res) = yes) &
+  !unres.(unres: MEMBER & unres/: reserved => reservation(unres) = no)
+INITIALISATION
+  reservation := MEMBER*{no}
+OPERATIONS
+  make_a_reservation(mem) =
+    reservation := reservation <+ {mem |-> yes}
+ASSERTIONS
+  !(res, mem).(
+    res: MEMBER &
+    mem: MEMBER &
+    res: reserved &
+    mem /: reserved
+    =>
+    reservation(res) /= reservation(mem)
+  )
+END
