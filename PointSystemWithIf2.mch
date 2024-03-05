@@ -7,7 +7,7 @@ OPERATIONS
     IF
       used < granted
     THEN
-      sp <-- used_a_point
+      sp <-- use_a_point
     ELSE
       sp := 0
     END;
@@ -15,7 +15,7 @@ OPERATIONS
     IF
       granted < 10000
     THEN
-      ap <-- granted_a_point
+      ap <-- grant_a_point
     ELSE
       ap := 0
     END
