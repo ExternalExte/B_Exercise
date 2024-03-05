@@ -7,19 +7,18 @@ INVARIANT
 INITIALISATION
   granted, used := 0,0
 OPERATIONS
-  sp <-- used_a_point = 
+  sp <-- use_a_point =
     PRE
       used < granted
     THEN
       sp, used := used + 1, used + 1
     END;
-  ap <-- granted_a_point =
+  ap <-- grant_a_point =
     PRE
       granted < 10000
     THEN
       ap, granted := granted + 1, granted + 1
-    END; 
+    END;
   unused <-- query =
     unused := granted - used
 END
- 
