@@ -29,7 +29,7 @@ OPERATIONS
       vv: VALUE &
       ii < jj
     THEN
-      arr_vrb := arr_vrb <+ {xx, yy| xx: ii..jj & yy = vv}
+      arr_vrb := arr_vrb <+ %index.(index: ii..jj | vv)
     END;
   SWAP_ARRAY(ii, jj) =
     PRE
