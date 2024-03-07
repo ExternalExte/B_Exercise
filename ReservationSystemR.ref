@@ -5,16 +5,18 @@ REFINES
 SETS
   STATUS = {yes, no}
 VARIABLES
-  reservation
+  reservation, ravailable
 INVARIANT
   reservation: MEMBER --> STATUS &
   !res.(res: MEMBER & res: reserved => reservation(res) = yes) &
-  !unres.(unres: MEMBER & unres/: reserved => reservation(unres) = no)
+  !unres.(unres: MEMBER & unres/: reserved => reservation(unres) = no) &
+  ravailable: NAT &
+  ravailable = available
 INITIALISATION
-  reservation := MEMBER*{no}
+  reservation, ravailable := MEMBER*{no}, capacity
 OPERATIONS
   make_a_reservation(mem) =
-    reservation := reservation <+ {mem |-> yes}
+    reservation, ravailable := reservation <+ {mem |-> yes}, ravailable - 1
 ASSERTIONS
   !(res, mem).(
     res: MEMBER &

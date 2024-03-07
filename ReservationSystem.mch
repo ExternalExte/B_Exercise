@@ -11,7 +11,7 @@ PROPERTIES
 VARIABLES
   available, reserved
 INVARIANT
-  available: NATURAL &
+  available: NAT &
   reserved: FIN(MEMBER) &
   capacity = card(reserved) + available
 INITIALISATION
