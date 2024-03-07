@@ -1,5 +1,5 @@
-MACHINE // 本にはMODELで記載されてる, 違いはなんだろう
-  PointSystem
+MACHINE
+  PointSystemWithIf
 VARIABLES
   granted, used
 INVARIANT
@@ -7,18 +7,20 @@ INVARIANT
 INITIALISATION
   granted, used := 0,0
 OPERATIONS
-  sp <-- use_a_point =
-    PRE
+  sp <-- try_to_use =
+    IF
       used < granted
     THEN
       sp, used := used + 1, used + 1
+    ELSE
+      sp := 0
     END;
-  ap <-- grant_a_point =
-    PRE
+  ap <-- try_to_grant =
+    IF
       granted < 10000
     THEN
       ap, granted := granted + 1, granted + 1
-    END;
-  unused <-- query =
-    unused := granted - used
+    ELSE
+      ap := 0
+    END
 END

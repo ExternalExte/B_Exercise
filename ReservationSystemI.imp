@@ -1,0 +1,21 @@
+IMPLEMENTATION
+  ReservationSystemI(capacity)
+REFINES
+  ReservationSystemR
+IMPORTS
+  reservation_list.List(STATUS, max_mems, no)
+CONCRETE_VARIABLES
+  iavailable
+VALUES
+  max_mems = 10000;
+  MEMBER = 1..max_mems
+INVARIANT
+  iavailable: NAT &
+  iavailable = ravailable &
+  reservation_list.list = reservation
+INITIALISATION
+  iavailable := capacity
+OPERATIONS
+  make_a_reservation(mem) =
+    reservation_list.assign(mem, yes)
+END

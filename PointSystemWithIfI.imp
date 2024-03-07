@@ -1,0 +1,38 @@
+IMPLEMENTATION
+  PointSystemWithIfI
+REFINES
+  PointSystemWithIf
+IMPORTS
+  imp.PointSystem
+CONCRETE_VARIABLES
+  cgranted, cused
+INVARIANT
+  cgranted: NAT &
+  cgranted = granted &
+  cgranted = imp.granted &
+  cused: NAT &
+  cused = used &
+  cused = imp.used
+INITIALISATION
+  cgranted := 0;
+  cused := 0
+OPERATIONS
+  sp <-- try_to_use =
+    IF
+      cused < cgranted
+    THEN
+      sp <-- imp.use_a_point;
+      cused := cused + 1
+    ELSE
+      sp := 0
+    END;
+  ap <-- try_to_grant =
+    IF
+      cgranted < 10000
+    THEN
+      ap <-- imp.grant_a_point;
+      cgranted := cgranted + 1
+    ELSE
+      ap := 0
+    END
+END
