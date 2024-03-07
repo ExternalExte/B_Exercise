@@ -9,7 +9,7 @@ if os.path.exists('lang'):
   shutil.rmtree('lang')
 os.makedirs('bdp')
 os.makedirs('lang')
-components = [os.path.basename(file) for file in os.scandir() if file.is_file() and file.name.endswith(('.mch', '.ref', '.imp','.sys', '.pup', '.pmm'))]
+components = [os.path.basename(file) for file in os.scandir() if file.is_file() and file.name.endswith(('.mch', '.ref', '.imp'))]
 targets = [os.path.splitext(os.path.basename(tg))[0] for tg in sys.argv[1:]]
 
 result = []
@@ -19,7 +19,7 @@ with subprocess.Popen(["/opt/atelierb-free-4.7.1p1/startBB"], stdin=subprocess.P
   for c in components:
     bbatch.stdin.write(f'af {c}\n'.encode())
   for tg in targets:
-    bbatch.stdin.write(f'pr {tg} 3\n'.encode())
+    bbatch.stdin.write(f'pr {tg} 0\n'.encode())
   for tg in targets:
     bbatch.stdin.write(f's {tg}\n'.encode())
   bbatch.stdin.write('quit\n'.encode())
