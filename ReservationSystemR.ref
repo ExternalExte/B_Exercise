@@ -8,10 +8,12 @@ VARIABLES
   reservation, ravailable
 INVARIANT
   reservation: MEMBER --> STATUS &
+  reservation~[{yes}] = reserved &
   !res.(res: MEMBER & res: reserved => reservation(res) = yes) &
   !unres.(unres: MEMBER & unres/: reserved => reservation(unres) = no) &
   ravailable: NAT &
-  ravailable = available
+  available = ravailable &
+  capacity = card(reservation~[{yes}]) + ravailable
 INITIALISATION
   reservation, ravailable := MEMBER*{no}, capacity
 OPERATIONS

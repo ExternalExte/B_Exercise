@@ -17,5 +17,8 @@ INITIALISATION
   iavailable := capacity
 OPERATIONS
   make_a_reservation(mem) =
-    reservation_list.assign(mem, yes)
+    BEGIN
+      reservation_list.assign(mem, yes);
+      iavailable := iavailable - 1
+    END
 END
