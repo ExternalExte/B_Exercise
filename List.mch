@@ -7,7 +7,8 @@ VARIABLES
   list
 INVARIANT
   list: seq(VALUE) &
-  size(list) = list_size
+  size(list) = list_size &
+  dom(list) = 1..list_size
 INITIALISATION
   list := %index.(index: 1..list_size | default)
 OPERATIONS
