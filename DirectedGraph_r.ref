@@ -6,13 +6,12 @@ VARIABLES
   CEdge
 INVARIANT
   CEdge: NODE --> POW(NODE) &
-  !(xx, yy).(xx: NODE & yy: NODE => ((xx |-> yy: Edge) <=> (yy: CEdge(xx))))
+  !(xx, yy).(xx: NODE & yy: NODE & xx |-> yy: Edge => yy: CEdge(xx))
 INITIALISATION
   CEdge := NODE*{{}}
 OPERATIONS
   add_edge(n1, n2) =
     CEdge := CEdge <+ { n1 |-> ({n2} \/ CEdge(n1))};
-  delete_edge(n1, n2) = 
+  delete_edge(n1, n2) =
     CEdge := CEdge <+ {n1 |-> (CEdge(n1) - {n2})}
 END
- 
